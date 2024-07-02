@@ -8,25 +8,23 @@ const Navbar = () => {
     const router = useRouter();
     const links =[
         {
-            title:'About',
-            path:'/about'
+            title:'Meals',
+            path:'/meals'
         },
         {
-            title:'Services',
-            path:'/services'
+            title:'Posts',
+            path:'/posts'
         },
-        {
-            title:'Contacts',
-            path:'/contacts'
-        },
-        {
-            title:'Blogs',
-            path:'/blogs'
-        }
     ]
     const handleLogin=()=>{
-        router.push('/about')
+        router.push('/login')
     }
+    if(pathname.includes('dashboard'))
+        return (
+            <div className='bg-green-400'>
+                Dashboard layout
+            </div>
+        )
     return (
         <nav className="bg-red-500 px-6 py-4 flex justify-between items-center">
           <h6 className='text-3xl'>Next JS</h6>
