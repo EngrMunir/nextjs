@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const Meals = () => {
@@ -12,8 +13,9 @@ const Meals = () => {
             const res = await fetch(`https://www.themedb.com/api/json/v1/1/search.php?f=${search}`)
         const data = await res.json();
         setMeals(data.meals)
+        setError("")
         } catch (error) {
-            console.log(error.message)
+            setError("No data found")
         }
         
     }
@@ -31,13 +33,17 @@ const Meals = () => {
                 <input onChange={handler} className='p-4 outline-none border-2 text-slate-900' type="text" placeholder='search meals......' />
                 <button onClick={()=> loadData()} className='bg-red-400 p-4'>Search</button>
                 <div className='mt-12 grid grid-cols-3 gap-12'>
-                    { meals?.length > 0 &&
+                    { meals?.length > 0 && !error &&
                         meals?.map((meal)=>(
                             <div key={meal.idMeal} className='border-2 p-4'>
+                                <Image src={meal?.strMealThumb} alt={meal?.strMeal} width={500} height={500}/>
                                 <h6>{meal.strMeal}</h6>
                                 <p>{meal.strInstructions}</p>
                             </div>
                         ))
+                    }
+                    {
+                        error && <h6>No data found</h6>
                     }
 
                 </div>
